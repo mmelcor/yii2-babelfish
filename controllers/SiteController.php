@@ -20,7 +20,6 @@ use babelfish\models\PasswordResetRequestForm;
 use babelfish\models\ResetPasswordForm;
 use babelfish\models\PoMessagesSearch;
 use babelfish\models\MailModel;
-use yii\data\ArrayDataProvider;
 use common\components\languages;
 use babelfish\models\newUserForm;
 use babelfish\models\TranslatorLanguage;
@@ -37,36 +36,36 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => ['login', 'error', 'request-password-reset', 'reset-password', 'newuser', 'avatar-upload'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => [
-							'logout', 
-							'index', 
-							'signup', 
-							'profile', 
-							'avatar-delete', 
-							'passwd',
-							'stylefix',
-							'newtrans',
-						],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
+	    'access' => [
+		'class' => AccessControl::className(),
+		'rules' => [
+		    [
+			'actions' => ['login', 'error', 'request-password-reset', 'reset-password', 'newuser', 'avatar-upload'],
+			'allow' => true,
+		    ],
+		    [
+			'actions' => [
+			    'logout', 
+			    'index', 
+			    'signup', 
+			    'profile', 
+			    'avatar-delete', 
+			    'passwd',
+			    'stylefix',
+			    'newtrans',
+			],
+			'allow' => true,
+			'roles' => ['@'],
+		    ],
+		],
+	    ],
+	    'verbs' => [
+		'class' => VerbFilter::className(),
+		'actions' => [
+		    'logout' => ['post'],
+		],
+	    ],
+	];
     }
 
     /**
@@ -95,65 +94,51 @@ class SiteController extends Controller
     }
 
     public function actionIndex() {
-	//$count = Subscriptions::find()->count();
 
-	/*$parser = new poParser();
-	$data = $parser->fetch('../../common/messages/de/messages.po');
-	$data = $data[0];
-$dataProvider = new ArrayDataProvider([
-    'allModels' => $data,
-    'pagination' => [
-        'pageSize' => 25,
-    ],
-    'sort' => [
-        'attributes' => ['#', 'TRANSLATOR', 'TRANSLATED', 'msgctxt', 'msgid', 'msgstr'],
-    ],
-]);*/
 	$searchModel = new PoMessagesSearch();
 	$searchModel->getData('de');
 	$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 
 	return $this->render('index', [
-		'searchModel' => $searchModel,
+	    'searchModel' => $searchModel,
 	    'dataProvider' => $dataProvider,
 	    'count' => 52,
-	    //'subsCount' => $count,
 	]);
     }
 
 	public function actionStylefix()
 	{
-		$model = new MailModel();
-		$ninjas = Yii::$app->authManager->getUserIdsByRole('ninja');
-		$recipients;
-		$lang = Yii::$app->user->identity->translang;
-		
-		if($ninjas != null) {
-			foreach($ninjas as $ninja) {
-				$user = \babelfish\models\BabelfishUsers::findOne($ninja);
-				$recipients[$user->email] = $user->firstname . ' ' . $user->lastname;
-			}
+	    $model = new MailModel();
+	    $ninjas = Yii::$app->authManager->getUserIdsByRole('ninja');
+	    $recipients;
+	    $lang = Yii::$app->user->identity->translang;
+
+	    if($ninjas != null) {
+		foreach($ninjas as $ninja) {
+		    $user = \babelfish\models\BabelfishUsers::findOne($ninja);
+		    $recipients[$user->email] = $user->firstname . ' ' . $user->lastname;
 		}
+	    }
 
-		if($model->load(Yii::$app->request->post())) {
-			$model->sendor = Yii::$app->user->identity->email;
-			$model->send_name = Yii::$app->user->identity->firstname . ' ' . Yii::$app->user->identity->lastname;
-			$model->recipients = $recipients;
-			$model->language = $lang;
+	    if($model->load(Yii::$app->request->post())) {
+		$model->sendor = Yii::$app->user->identity->email;
+		$model->send_name = Yii::$app->user->identity->firstname . ' ' . Yii::$app->user->identity->lastname;
+		$model->recipients = $recipients;
+		$model->language = $lang;
 
-			Yii::$app->mailer->compose([
-				'html' => 'styleFix-html',
-				'text' => 'styleFix-text',
-			],
-			['model' => $model])
-			->setFrom([$model->sendor => $model->send_name])
-			->setTo($model->recipients)
-			->setSubject('Style fixes')
-			->send();
+		Yii::$app->mailer->compose([
+		    'html' => 'styleFix-html',
+		    'text' => 'styleFix-text',
+		],
+		['model' => $model])
+		->setFrom([$model->sendor => $model->send_name])
+		->setTo($model->recipients)
+		->setSubject('Style fixes')
+		->send();
 
-			return $this->redirect('stylefix');
-		}
+		return $this->redirect('stylefix');
+	    }
 
 		return $this->render('stylefix', [
 			'model' => $model,
@@ -162,46 +147,46 @@ $dataProvider = new ArrayDataProvider([
 
 	public function actionNewtrans()
 	{
-		$lang = new Language();
-		$languages = $lang->getActiveLanguages();
-		
-		$model = new MailModel();
-		$recipients;
+	    $lang = new Language();
+	    $languages = $lang->getActiveLanguages();
 
-		if($model->load(Yii::$app->request->post())) {
-			$model->sendor = Yii::$app->user->identity->email;
-			$model->send_name = Yii::$app->user->identity->firstname . ' ' . Yii::$app->user->identity->lastname;
-			
-			if($model->language != null) {
-				foreach($model->language as $lang) {
-					$translangs = TranslatorLanguage::findAll(['language' => $lang]);
-					if($translangs != null) {
-						foreach($translangs as $tlang) {
-							$recipients[$tlang->user->email] = $tlang->user->firstname . ' ' . $tlang->user->lastname;
-						}
-					}
-				}
+	    $model = new MailModel();
+	    $recipients;
+
+	    if($model->load(Yii::$app->request->post())) {
+		$model->sendor = Yii::$app->user->identity->email;
+		$model->send_name = Yii::$app->user->identity->firstname . ' ' . Yii::$app->user->identity->lastname;
+
+		if($model->language != null) {
+		    foreach($model->language as $lang) {
+			$translangs = TranslatorLanguage::findAll(['language' => $lang]);
+			if($translangs != null) {
+			    foreach($translangs as $tlang) {
+				$recipients[$tlang->user->email] = $tlang->user->firstname . ' ' . $tlang->user->lastname;
+			    }
 			}
-			
-			$model->recipients = $recipients;
-
-			Yii::$app->mailer->compose([
-				'html' => 'newTrans-html',
-				'text' => 'newTrans-text',
-			],
-			['model' => $model])
-			->setFrom([$model->sendor => $model->send_name])
-			->setTo($model->recipients)
-			->setSubject('Style fixes')
-			->send();
-
-			return $this->redirect('newtrans');
+		    }
 		}
 
-		return $this->render('newtrans', [
-			'model' => $model,
-			'langs' => $languages,
-		]);
+		$model->recipients = $recipients;
+
+		Yii::$app->mailer->compose([
+		    'html' => 'newTrans-html',
+		    'text' => 'newTrans-text',
+		],
+		['model' => $model])
+		->setFrom([$model->sendor => $model->send_name])
+		->setTo($model->recipients)
+		->setSubject('Style fixes')
+		->send();
+
+		return $this->redirect('newtrans');
+	    }
+
+	    return $this->render('newtrans', [
+		'model' => $model,
+		'langs' => $languages,
+	    ]);
 	}
 
     public function actionLogin()
@@ -257,50 +242,50 @@ $dataProvider = new ArrayDataProvider([
      */
     public function actionProfile()
     {
-        $model = Yii::$app->user->identity;
-		$translator_languages = TranslatorLanguage::findAll(['translator' => Yii::$app->user->identity->id]);
-		$translangModel = new TranslatorLanguage();
-		$tlangs = null;
-		if($translator_languages != null) {
-			foreach($translator_languages as $tlang) {
-				$tlangs[$tlang->language] = $tlang->language;
+	$model = Yii::$app->user->identity;
+	$translator_languages = TranslatorLanguage::findAll(['translator' => Yii::$app->user->identity->id]);
+	$translangModel = new TranslatorLanguage();
+	$tlangs = null;
+	if($translator_languages != null) {
+	    foreach($translator_languages as $tlang) {
+		$tlangs[$tlang->language] = $tlang->language;
+	    }
+	}
+	$translangModel->languages = $tlangs;
+
+	$lang = new Language();
+	$langs = $lang->getActiveLanguages();
+
+	if ($model->load($_POST) && $model->save()) {
+	    if($translangModel->load(Yii::$app->request->post())) {
+		$langs = $translangModel->languages;
+
+		if($langs != null) {
+		    foreach($langs as $lang) {
+			$tlModel = new TranslatorLanguage();
+			$tlModel->translator = $model->id;
+			$tlModel->language = $lang;
+			if(!$tlModel->save()) {
+			    Yii::$app->session->setFlash('alert', [
+				'options'=>['class'=>'alert-failure'],
+				'body'=>Yii::t('global', 'Your profile has not been saved')
+			    ]);
+			    return $this->refresh();
 			}
+		    }
 		}
-		$translangModel->languages = $tlangs;
-
-		$lang = new Language();
-		$langs = $lang->getActiveLanguages();
-
-        if ($model->load($_POST) && $model->save()) {
-			if($translangModel->load(Yii::$app->request->post())) {
-				$langs = $translangModel->languages;
-
-				if($langs != null) {
-					foreach($langs as $lang) {
-						$tlModel = new TranslatorLanguage();
-						$tlModel->translator = $model->id;
-						$tlModel->language = $lang;
-						if(!$tlModel->save()) {
-							Yii::$app->session->setFlash('alert', [
-								'options'=>['class'=>'alert-failure'],
-								'body'=>Yii::t('global', 'Your profile has not been saved')
-							]);
-							return $this->refresh();
-						}
-					}
-				}
-				Yii::$app->session->setFlash('alert', [
-					'options'=>['class'=>'alert-success'],
-					'body'=>Yii::t('global', 'Your profile has been successfully saved')
-				]);
-				return $this->refresh();
-			}
-        }
-        return $this->render('profile', [
-			'model'=>$model,
-			'langs' => $langs,
-			'translangModel' => $translangModel,
+		Yii::$app->session->setFlash('alert', [
+		    'options'=>['class'=>'alert-success'],
+		    'body'=>Yii::t('global', 'Your profile has been successfully saved')
 		]);
+		return $this->refresh();
+	    }
+	}
+	return $this->render('profile', [
+	    'model'=>$model,
+	    'langs' => $langs,
+	    'translangModel' => $translangModel,
+	]);
     }
     
     /**
@@ -391,39 +376,31 @@ $dataProvider = new ArrayDataProvider([
 	$modelUser = BabelfishUsers::find()->where(['email'=>Yii::$app->user->identity->email])->one();
 
 	if ($model->load(Yii::$app->request->post())) {
-	    
 	    if ($model->validate()) {
 		try {
 		    $modelUser->password_hash = Yii::$app->security->generatePasswordHash($_POST['PasswordForm']['newpass']);
-		    
 		    if ($modelUser->save()) {
-
 			Yii::$app->getSession()->setFlash(
 			    'success','Password changed'
 			);
 			return $this->refresh();
-		    
 		    } else {
-
 			Yii::$app->getSession()->setFlash('error', 'Password not changed');
 			return $this->refresh();
 		    }
 		}
 		catch (Exception $e) {
-
 		    Yii::$app->getSession()->setFlash('error', "{$e->getMessage()}");
 		    return $this->render('passwd', [
 			'model' => $model,
 		    ]);
 		}
 	    } else {
-
 		return $this->render('passwd', [
 		    'model' => $model
 		]);
 	    }
 	} else {
-
 	    return $this->render('passwd', [
 		'model' => $model
 	    ]);
