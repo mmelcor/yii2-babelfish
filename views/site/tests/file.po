@@ -1,0 +1,157 @@
+# This is a comment
+# This is another comment
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgctxt "backend"
+msgid "Reset"
+msgstr ""
+
+# this is a comment
+# TRANSLATED  1464737909
+# TRANSLATOR  Ford Prefect (not the car)
+msgctxt "backend"
+msgid "Search"
+msgstr ""
+
+msgctxt "backend"
+msgid "Sorry, application failed to collect information about your system. See {link}."
+msgstr ""
+
+msgctxt "base"
+msgid "The Fluffy Monkey"
+msgstr ""
+
+msgctxt "common"
+msgid "Firstname"
+msgstr ""
+
+msgctxt "common"
+msgid "Lastname"
+msgstr ""
+
+msgctxt "common"
+msgid "Picture"
+msgstr ""
+
+msgctxt "common"
+msgid "User ID"
+msgstr ""
+
+msgctxt "global"
+msgid "API access token"
+msgstr ""
+
+msgctxt "global"
+msgid "Active"
+msgstr ""
+
+msgctxt "global"
+msgid "Created at"
+msgstr ""
+
+msgctxt "global"
+msgid "Email"
+msgstr ""
+
+msgctxt "global"
+msgid "First Name"
+msgstr ""
+
+msgctxt "global"
+msgid "Last Name"
+msgstr ""
+
+msgctxt "global"
+msgid "Last login"
+msgstr ""
+
+msgctxt "global"
+msgid "Picture"
+msgstr ""
+
+msgctxt "global"
+msgid "Updated at"
+msgstr ""
+
+msgctxt "global"
+msgid "Username"
+msgstr ""
+
+msgctxt "global"
+msgid "Your profile has been successfully saved"
+msgstr ""
+
+msgctxt "global"
+msgid "close"
+msgstr ""
+
+msgctxt "global"
+msgid "email"
+msgstr ""
+
+msgctxt "global"
+msgid "id"
+msgstr ""
+
+msgctxt "global"
+msgid "name"
+msgstr ""
+
+msgctxt "home"
+msgid "EMAIL"
+msgstr ""
+
+msgctxt "home"
+msgid "NAME"
+msgstr ""
+
+msgctxt "home"
+msgid "THANKS FOR <span class='boldy ital'>SIGNING UP!</span>"
+msgstr ""
+
+msgctxt "home"
+msgid "email"
+msgstr ""
+
+msgctxt "home"
+msgid "name"
+msgstr ""
+
+msgctxt "menu"
+msgid "Asia"
+msgstr ""
+
+msgctxt "menu"
+msgid "BLOG"
+msgstr ""
+
+msgctxt "menu"
+msgid "BYRON BELKA"
+msgstr ""
+
+msgctxt "menu"
+msgid "EDUCATE"
+msgstr ""
+
+msgctxt "menu"
+msgid "Europe"
+msgstr ""
+
+msgctxt "menu"
+msgid "MEET BYRON"
+msgstr ""
+
+msgctxt "menu"
+msgid "North America"
+msgstr ""
+
