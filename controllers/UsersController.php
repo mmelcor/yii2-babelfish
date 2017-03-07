@@ -1,13 +1,13 @@
 <?php
 
-namespace backend\modules\babelfish\controllers;
+namespace mmelcor\babelfish\controllers;
 
 use Yii;
-use backend\modules\babelfish\models\BabelfishUsers;
-use backend\modules\babelfish\models\BabelfishUsersSearch;
-use backend\modules\babelfish\models\AddUserForm;
-use backend\modules\babelfish\models\TranslatorsSearch;
-use backend\modules\babelfish\models\TranslatorLanguage;
+use mmelcor\babelfish\models\BabelfishUsers;
+use mmelcor\babelfish\models\BabelfishUsersSearch;
+use mmelcor\babelfish\models\AddUserForm;
+use mmelcor\babelfish\models\TranslatorsSearch;
+use mmelcor\babelfish\models\TranslatorLanguage;
 use oorrwullie\babelfishfood\models\Languages;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -34,7 +34,7 @@ class UsersController extends Controller {
      */
     public function behaviors() {
 
-        return [
+	return [
 	    'access' => [
 		'class' => AccessControl::className(),
 		'rules' => [
@@ -44,13 +44,13 @@ class UsersController extends Controller {
 		    ],
 		],
 	    ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
+	    'verbs' => [
+		'class' => VerbFilter::className(),
+		'actions' => [
+		    'delete' => ['POST'],
+		],
+	    ],
+	];
     }
 
     /**
@@ -82,14 +82,14 @@ class UsersController extends Controller {
      */
     public function actionAdduser() {
 
-        $model = new AddUserForm();
-		$roles = $this->getRoles();
-		$active_langs = Languages::findAll(['active' => 1]);
-		$langs;
+	$model = new AddUserForm();
+	$roles = $this->getRoles();
+	$active_langs = Languages::findAll(['active' => 1]);
+	$langs;
 
-		foreach($active_langs as $lang) {
-			$langs[$lang->lang_id] = $lang->lang_name;
-		}
+	foreach($active_langs as $lang) {
+	    $langs[$lang->lang_id] = $lang->lang_name;
+	}
 
 	if ($model->load(Yii::$app->request->post())) {
 	    if ($user = $model->adduser()) {
@@ -104,8 +104,8 @@ class UsersController extends Controller {
 	return $this->render('adduser', [
 	    'model' => $model,
 	    'roles' => $roles,
-		'langs' => $langs,
-        ]);
+	    'langs' => $langs,
+	]);
     }
 
     /**
@@ -119,47 +119,47 @@ class UsersController extends Controller {
 	$model = $this->findModel($id);
 	$authRole = Yii::$app->authManager->getRolesByUser($id);
 	$roles = $this->getRoles();
-		$translator_languages = TranslatorLanguage::findAll(['translator' => $id]);
-		$translangModel = new TranslatorLanguage();
-		$tlangs = null;
-		foreach($translator_languages as $tlang) {
-			$tlangs[$tlang->language] = $tlang->language;
-		}
-		$translangModel->languages = $tlangs;
+	$translator_languages = TranslatorLanguage::findAll(['translator' => $id]);
+	$translangModel = new TranslatorLanguage();
+	$tlangs = null;
+	foreach($translator_languages as $tlang) {
+	    $tlangs[$tlang->language] = $tlang->language;
+	}
+	$translangModel->languages = $tlangs;
 
-		$lang = new Languages();
-		$langs = $lang->getTranslatorLanguages();
+	$lang = new Languages();
+	$langs = $lang->getTranslatorLanguages();
 
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			$translangModel->newLanguages = Yii::$app->request->post('TranslatorLanguage');
-			$translangModel->translator = $id;
-			$langs = $translangModel;
-			$langs->updateAssociations();
+	if ($model->load(Yii::$app->request->post()) && $model->save()) {
+	    $translangModel->newLanguages = Yii::$app->request->post('TranslatorLanguage');
+	    $translangModel->translator = $id;
+	    $langs = $translangModel;
+	    $langs->updateAssociations();
 
-			if(!$langs->saveNew()) {
-				Yii::$app->session->setFlash('alert', [
-					'options'=>['class'=>'alert-failure'],
-					'body'=>Yii::t('global', 'Your profile has not been saved')
-				]);
-				return $this->refresh();
-			}
-			Yii::$app->session->setFlash('alert', [
-				'options'=>['class'=>'alert-success'],
-				'body'=>Yii::t('global', 'Your profile has been successfully saved')
-			]);
-			return $this->redirect(['index', [
-			'searchModel' => $this->searchModel,
-			'dataProvider' => $this->dataProvider,
-			]]);
-        } else {
-            return $this->render('update', [
-			'translangModel' => $translangModel,
-			'langs' => $langs,
+	    if(!$langs->saveNew()) {
+		Yii::$app->session->setFlash('alert', [
+		    'options'=>['class'=>'alert-failure'],
+		    'body'=>Yii::t('global', 'Your profile has not been saved')
+		]);
+		return $this->refresh();
+	    }
+	    Yii::$app->session->setFlash('alert', [
+		'options'=>['class'=>'alert-success'],
+		'body'=>Yii::t('global', 'Your profile has been successfully saved')
+	    ]);
+	    return $this->redirect(['index', [
+		'searchModel' => $this->searchModel,
+		'dataProvider' => $this->dataProvider,
+	    ]]);
+	} else {
+	    return $this->render('update', [
+		'translangModel' => $translangModel,
+		'langs' => $langs,
 		'model' => $model,
 		'roles' => $roles,
-            ]);
-        }
+	    ]);
+	}
     }
 
     /**
@@ -175,9 +175,9 @@ class UsersController extends Controller {
 	$role = $auth->getRole($model->getRole());
 	$auth->revoke($role, $id);
 
-        $model->delete();
+	$model->delete();
 
-        return $this->redirect(['index']);
+	return $this->redirect(['index']);
     }
 
     /**
@@ -189,18 +189,18 @@ class UsersController extends Controller {
      */
     protected function findModel($id)
     {
-        if (($model = BabelfishUsers::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
+	if (($model = BabelfishUsers::findOne($id)) !== null) {
+	    return $model;
+	} else {
+	    throw new NotFoundHttpException('The requested page does not exist.');
+	}
     }
 
     /**
      * Returns a list of all roles
      */
     protected function getRoles() {
-	
+
 	$query[] = Yii::$app->babelfishDb->createCommand("SELECT name `role` FROM auth_item WHERE type = 1")->queryAll();
 	foreach ($query[0] as $key => $value) {
 	    $roles[$value['role']] = $value['role'];
