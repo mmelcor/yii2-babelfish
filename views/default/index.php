@@ -31,7 +31,7 @@ $this->title = 'Dashboard | BabelFish';
 		</div>
 	    </div>
 -->
-	    <div class="col-md-6 col-sm-12">
+	    <div class="col-md-12 col-sm-12">
 		<div class="box box-primary">
 		    <div class="box-header">
 			<i class="fa fa-paper-plane"></i>
