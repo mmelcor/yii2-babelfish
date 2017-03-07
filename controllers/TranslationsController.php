@@ -71,8 +71,6 @@ class TranslationsController extends \yii\web\Controller {
 	    $model->translator = Yii::$app->user->identity->firstname .' '
 		. Yii::$app->user->identity->lastname;
 
-	    $model->msgstr = addslashes($model->msgstr);
-
 	    $model_array[$model->id] = $model;
 	    if ($object->save($this->transLanguage, $model_array)) {
 		return $this->redirect('index');

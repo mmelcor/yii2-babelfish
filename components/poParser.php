@@ -104,7 +104,7 @@ class poParser extends Component {
 		}
 		$data .= 'msgctxt "' . $translation->msgctxt . "\"\n";
 		$data .= 'msgid "' . $translation->msgid . "\"\n";
-		$data .= 'msgstr "' . $translation->msgstr . "\"\n";
+		$data .= 'msgstr "' . addslashes($translation->msgstr) . "\"\n";
 	    $data .= "\n";
 	}
 	return file_put_contents($file, $data);
