@@ -1,7 +1,6 @@
 <?php
-namespace backend\modules\babelfish\models;
+namespace mmelcor\babelfish\models;
 
-use common\commands\AddToTimelineCommand;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\AttributeBehavior;
@@ -10,7 +9,7 @@ use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
 use trntv\filekit\behaviors\UploadBehavior;
-use backend\modules\babelfish\models\TranslatorLanguage;
+use mmelcor\babelfish\models\TranslatorLanguage;
 use yii\db\Query;
 
 /**
@@ -333,15 +332,6 @@ class BabelfishUsers extends ActiveRecord implements IdentityInterface {
     public function afterSignup(array $profileData = [])
     {
         $this->refresh();
-        Yii::$app->commandBus->handle(new AddToTimelineCommand([
-            'category' => 'user',
-            'event' => 'signup',
-            'data' => [
-                'public_identity' => $this->getPublicIdentity(),
-                'user_id' => $this->getId(),
-                'created_at' => $this->created_at
-            ]
-        ]));
         $profile = new UserProfile();
         $profile->load($profileData, '');
         $this->link('userProfile', $profile);

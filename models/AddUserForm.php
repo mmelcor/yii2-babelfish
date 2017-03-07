@@ -1,10 +1,10 @@
 <?php
-namespace backend\modules\babelfish\models;
+namespace mmelcor\babelfish\models;
 
 use Yii;
 use yii\base\Model;
-use backend\modules\babelfish\models\BabelfishUsers;
-use backend\modules\babelfish\models\TranslatorLanguage;
+use mmelcor\babelfish\models\BabelfishUsers;
+use mmelcor\babelfish\models\TranslatorLanguage;
 
 /**
  * Add User form
