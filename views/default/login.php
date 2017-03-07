@@ -59,7 +59,7 @@ $fieldOptions2 = [
         </div> -->
         <!-- /.social-auth-links -->
 
-        <a href="site/request-password-reset">I forgot my password</a><br>
+        <a href="request-password-reset">I forgot my password</a><br>
 
     </div>
     <!-- /.login-box-body -->
