@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\modules\babelfish\assets;
+namespace mmelcor\babelfish\assets;
 
 use yii\web\AssetBundle;
 
@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
  */
 class AppAsset extends AssetBundle
 {
-    public $sourcePath = '@backend/modules/babelfish/assets';
+    public $sourcePath = '@vendor/mmelcor/babelfish/assets';
     public $css = [
         'css/site.css',
 		'css/navbar.css',

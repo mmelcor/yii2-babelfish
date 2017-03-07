@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\modules\babelfish\assets;
+namespace mmelcor\babelfish\assets;
 
 use yii\web\AssetBundle;
 
@@ -9,13 +9,13 @@ use yii\web\AssetBundle;
  */
 class DashboardAsset extends AssetBundle
 {
-    public $sourcePath = '@backend/modules/babelfish/assets';
+    public $sourcePath = '@vendor/mmelcor/babelfish/assets';
     public $css = [
         'css/dashboard.css',
     ];
     public $js = [
     ];
     public $depends = [
-        'backend\modules\babelfish\assets\AppAsset',
+        'mmelcor\babelfish\assets\AppAsset',
     ];
 }

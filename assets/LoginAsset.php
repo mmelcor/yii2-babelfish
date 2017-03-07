@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\modules\babelfish\assets;
+namespace mmelcor\babelfish\assets;
 
 use yii\web\AssetBundle;
 
@@ -9,17 +9,16 @@ use yii\web\AssetBundle;
  */
 class LoginAsset extends AssetBundle
 {
-    public $sourcePath = '@backend/modules/babelfish/assets';
+    public $sourcePath = '@vendor/mmelcor/babelfish/assets';
     public $css = [
         'css/login.css',
     ];
     public $js = [
-	//'js/loginBackground.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
-	'backend\modules\babelfish\assets\AppAsset',
+	'mmelcor\babelfish\assets\AppAsset',
 	'dmstr\web\AdminLteAsset',
     ];
 }
