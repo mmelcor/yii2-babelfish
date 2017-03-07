@@ -6,9 +6,6 @@ use yii\helpers\Html;
 /* @var $model babelfish\models\PoMessages */
 
 $this->title = 'Update Translation:';
-//$this->params['breadcrumbs'][] = ['label' => 'Translations', 'url' => ['index']];
-//$this->params['breadcrumbs'][] = ['label' => $model->msgid, 'url' => ['view', 'id' => $model->msgid]];
-//$this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="translation-update">
 
