@@ -38,9 +38,7 @@ Once the extension is installed :
 
 
 
-
 Implementation
 --------------
-
 
 
