@@ -1,6 +1,6 @@
 <?php
 	
-	use backend\modules\babelfish\assets\AppAsset;
+	use mmelcor\babelfish\assets\AppAsset;
 	use yii\bootstrap\ActiveForm;
 	use yii\imperavi\Widget;
 	use yii\helpers\Html;
