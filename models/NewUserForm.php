@@ -1,9 +1,9 @@
 <?php
-namespace backend\modules\babelfish\models;
+namespace mmelcor\babelfish\models;
 
 use yii\base\Model;
 use yii\base\InvalidParamException;
-use backend\modules\babelfish\models\BabelfishUsers;
+use mmelcor\babelfish\models\BabelfishUsers;
 use trntv\filekit\behaviors\UploadBehavior;
 use yii\behaviors\TimestampBehavior;
 

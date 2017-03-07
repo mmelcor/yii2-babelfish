@@ -1,10 +1,10 @@
 <?php
 
-namespace backend\modules\babelfish\models;
+namespace mmelcor\babelfish\models;
 
 use Yii;
-use common\models\Languages;
-use backend\modules\babelfish\models\BabelfishUsers;
+use oorrwullie\babelfishfood\models\Languages;
+use mmelcor\babelfish\models\BabelfishUsers;
 
 /**
  * This is the model class for table "translator_language".
@@ -15,15 +15,15 @@ use backend\modules\babelfish\models\BabelfishUsers;
  */
 class TranslatorLanguage extends \yii\db\ActiveRecord
 {
-	public $languages;
-	public $newLanguages;
+    public $languages;
+    public $newLanguages;
 
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'translator_language';
+	return 'translator_language';
     }
 
     /**
@@ -31,7 +31,7 @@ class TranslatorLanguage extends \yii\db\ActiveRecord
      */
     public static function getDb()
     {
-        return Yii::$app->get('babelfishDb');
+	return Yii::$app->get('babelfishDb');
     }
 
     /**
@@ -39,11 +39,11 @@ class TranslatorLanguage extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-        return [
-            [['translator', 'language'], 'integer'],
-			['languages', 'safe'],
-		
-        ];
+	return [
+	    [['translator', 'language'], 'integer'],
+	    ['languages', 'safe'],
+
+	];
     }
 
     /**
@@ -51,72 +51,72 @@ class TranslatorLanguage extends \yii\db\ActiveRecord
      */
     public function attributeLabels()
     {
-        return [
-            'id' => 'ID',
-            'translator' => 'Translator',
-            'language' => 'Language',
-        ];
+	return [
+	    'id' => 'ID',
+	    'translator' => 'Translator',
+	    'language' => 'Language',
+	];
     }
 
-	/**
-	 * Checks $newLanguages vs $languages and removes or adds differences.
-	 */
-	public function updateAssociations()
-	{
-		$deleted = array_udiff($this->languages, $this->newLanguages['languages'], [$this, 'compare_languages']);
-		
-		if($deleted) {
-			foreach($deleted as $delete) {
-				$language = TranslatorLanguage::findOne(['translator' => $this->translator, 'language' => $delete]);
-				$language->delete();
-			}
+    /**
+     * Checks $newLanguages vs $languages and removes or adds differences.
+     */
+    public function updateAssociations()
+    {
+	$deleted = array_udiff($this->languages, $this->newLanguages['languages'], [$this, 'compare_languages']);
+
+	if($deleted) {
+	    foreach($deleted as $delete) {
+		$language = TranslatorLanguage::findOne(['translator' => $this->translator, 'language' => $delete]);
+		$language->delete();
+	    }
+	}
+    }
+
+    /**
+     * Saves the languages if they do not currently exist.
+     *
+     * @return true|false if it is able to save.
+     */
+    public function saveNew()
+    {
+	foreach($this->newLanguages['languages'] as $lang) {
+	    if(!TranslatorLanguage::findOne(['translator' => $this->translator, 'language' => $lang])) {
+		$newLang = new TranslatorLanguage();
+		$newLang->translator = $this->translator;
+		$newLang->language = $lang;
+
+		if(!$newLang->save()) {
+		    return false;
 		}
+	    }
 	}
+	return true;
+    }
 
-	/**
-	 * Saves the languages if they do not currently exist.
-	 *
-	 * @return true|false if it is able to save.
-	 */
-	public function saveNew()
-	{
-		foreach($this->newLanguages['languages'] as $lang) {
-			if(!TranslatorLanguage::findOne(['translator' => $this->translator, 'language' => $lang])) {
-				$newLang = new TranslatorLanguage();
-				$newLang->translator = $this->translator;
-				$newLang->language = $lang;
-	
-				if(!$newLang->save()) {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
+    /**
+     * Compares arrays
+     *
+     * @return boolean
+     */
+    public function compare_languages($languages, $newLanguages)
+    {
+	return strcmp($languages, $newLanguages);
+    }
 
-	/**
-	 * Compares arrays
-	 *
-	 * @return boolean
-	 */
-	public function compare_languages($languages, $newLanguages)
-	{
-		return strcmp($languages, $newLanguages);
-	}
+    /**
+     * @inheritdoc
+     */
+    public function getLanguage()
+    {
+	return $this->hasOne(Lanugage::className(), ['lang_id' => 'language']);
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function getLanguage()
-	{
-		return $this->hasOne(Lanugage::className(), ['lang_id' => 'language']);
-	}
-
-	/**
-	 * @inheritdoc
-	 */
-	public function getUser()
-	{
-		return $this->hasOne(BabelfishUsers::className(), ['id' => 'translator']);
-	}
+    /**
+     * @inheritdoc
+     */
+    public function getUser()
+    {
+	return $this->hasOne(BabelfishUsers::className(), ['id' => 'translator']);
+    }
 }

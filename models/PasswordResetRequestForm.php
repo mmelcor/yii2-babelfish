@@ -1,9 +1,9 @@
 <?php
-namespace backend\modules\babelfish\models;
+namespace mmelcor\babelfish\models;
 
 use Yii;
 use yii\base\Model;
-use backend\modules\babelfish\models\BabelfishUsers;
+use mmelcor\babelfish\models\BabelfishUsers;
 
 /**
  * Password reset request form

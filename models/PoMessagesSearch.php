@@ -1,11 +1,11 @@
 <?php
 
-namespace backend\modules\babelfish\models;
+namespace mmelcor\babelfish\models;
 
 use Yii;
-use backend\modules\babelfish\components\poParser;
+use mmelcor\babelfish\components\poParser;
 use yii\data\ArrayDataProvider;
-use backend\modules\babelfish\models\PoMessages;
+use mmelcor\babelfish\models\PoMessages;
 
 /**
  * PoMessagesSearch represents the model behind the search form about `babelfish\models\PoMessages`.

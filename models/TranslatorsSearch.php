@@ -1,11 +1,11 @@
 <?php
 
-namespace backend\modules\babelfish\models;
+namespace mmelcor\babelfish\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\modules\babelfish\models\BabelfishUsers;
+use mmelcor\babelfish\models\BabelfishUsers;
 
 /**
  * UserSearch represents the model behind the search form about `common\models\User`.
