@@ -15,7 +15,7 @@ class Module extends \yii\base\Module {
      */
     public $controllerNamespace = 'mmelcor\babelfish\controllers';
     public $id = 'app-babelfish';
-    public $layout = '@mmelcor/babelfish/views/layouts/main';
+    public $layout = '@vendor/mmelcor/yii2-babelfish/views/layouts/main';
     public $cookieValidationKey;
 
     /**

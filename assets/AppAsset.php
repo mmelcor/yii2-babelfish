@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
  */
 class AppAsset extends AssetBundle
 {
-    public $sourcePath = '@vendor/mmelcor/babelfish/assets';
+    public $sourcePath = '@vendor/mmelcor/yii2-babelfish/assets';
     public $css = [
         'css/site.css',
 		'css/navbar.css',
