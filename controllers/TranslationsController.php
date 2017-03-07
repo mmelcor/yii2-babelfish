@@ -1,13 +1,13 @@
 <?php
 
-namespace babelfish\controllers;
+namespace backend\modules\babelfish\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
 use yii\data\ArrayDataProvider;
-use common\components\languages;
-use babelfish\models\PoMessages;
-use babelfish\models\PoMessagesSearch;
+use oorrwullie\babelfishfood\models\Languages;
+use backend\modules\babelfish\models\PoMessages;
+use backend\modules\babelfish\models\PoMessagesSearch;
 
 class TranslationsController extends \yii\web\Controller {
 
@@ -17,7 +17,7 @@ class TranslationsController extends \yii\web\Controller {
     
 	    if (!Yii::$app->user->identity->translang) {
 		Yii::$app->user->identity->translang = "en";
-	    } elseif (!in_array(Yii::$app->user->identity->translang, languages::getI18n())) {
+	    } elseif (!in_array(Yii::$app->user->identity->translang, Languages::getI18n())) {
 		Yii::$app->user->identity->translang = "en";
 	    }
 	    $this->transLanguage = Yii::$app->user->identity->translang;
@@ -70,6 +70,8 @@ class TranslationsController extends \yii\web\Controller {
 			$model->translated = date('m/d/Y h:i:s');
 			$model->translator = Yii::$app->user->identity->firstname .' '
 				. Yii::$app->user->identity->lastname;
+
+			$model->msgstr = addslashes($model->msgstr);
 				
 			$model_array[$model->id] = $model;
 			if ($object->save($this->transLanguage, $model_array)) {

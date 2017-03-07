@@ -1,0 +1,16 @@
+.login-box {
+	margin:12% auto;
+}
+.login-page {
+    background: url('../images/login/babel_fish.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.login-box .login-box-body {
+    background: rgba(255,255,255,0.7);
+}
+.login-logo span {
+    font-size: 12px;
+}

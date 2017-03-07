@@ -1,12 +1,14 @@
 <?php
 
-namespace babelfish\controllers;
+namespace backend\modules\babelfish\controllers;
 
 use Yii;
-use babelfish\models\BabelfishUsers;
-use babelfish\models\BabelfishUsersSearch;
-use babelfish\models\AddUserForm;
-use common\models\Language;
+use backend\modules\babelfish\models\BabelfishUsers;
+use backend\modules\babelfish\models\BabelfishUsersSearch;
+use backend\modules\babelfish\models\AddUserForm;
+use backend\modules\babelfish\models\TranslatorsSearch;
+use backend\modules\babelfish\models\TranslatorLanguage;
+use oorrwullie\babelfishfood\models\Languages;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -38,7 +40,7 @@ class UsersController extends Controller {
 		'rules' => [
 		    [
 			'allow' => true,
-			'roles' => ['@'],
+			'roles' => ['manager'],
 		    ],
 		],
 	    ],
@@ -56,11 +58,21 @@ class UsersController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
+	if (Yii::$app->authManager->getAssignment('manager', Yii::$app->user->getId())) {
+	    $searchModel = new TranslatorsSearch();
+	    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $this->searchModel,
-            'dataProvider' => $this->dataProvider,
-        ]);
+	    return $this->render('index', [
+		'searchModel' => $searchModel,
+		'dataProvider' => $dataProvider,
+	    ]);
+
+	} else {
+	    return $this->render('index', [
+		'searchModel' => $this->searchModel,
+		'dataProvider' => $this->dataProvider,
+	    ]);
+	}
     }
 
     /**
@@ -72,7 +84,7 @@ class UsersController extends Controller {
 
         $model = new AddUserForm();
 		$roles = $this->getRoles();
-		$active_langs = Language::findAll(['active' => 1]);
+		$active_langs = Languages::findAll(['active' => 1]);
 		$langs;
 
 		foreach($active_langs as $lang) {
@@ -107,14 +119,43 @@ class UsersController extends Controller {
 	$model = $this->findModel($id);
 	$authRole = Yii::$app->authManager->getRolesByUser($id);
 	$roles = $this->getRoles();
+		$translator_languages = TranslatorLanguage::findAll(['translator' => $id]);
+		$translangModel = new TranslatorLanguage();
+		$tlangs = null;
+		foreach($translator_languages as $tlang) {
+			$tlangs[$tlang->language] = $tlang->language;
+		}
+		$translangModel->languages = $tlangs;
+
+		$lang = new Languages();
+		$langs = $lang->getTranslatorLanguages();
+
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-	    return $this->redirect(['index', [
-		'searchModel' => $this->searchModel,
-		'dataProvider' => $this->dataProvider,
-	    ]]);
+			$translangModel->newLanguages = Yii::$app->request->post('TranslatorLanguage');
+			$translangModel->translator = $id;
+			$langs = $translangModel;
+			$langs->updateAssociations();
+
+			if(!$langs->saveNew()) {
+				Yii::$app->session->setFlash('alert', [
+					'options'=>['class'=>'alert-failure'],
+					'body'=>Yii::t('global', 'Your profile has not been saved')
+				]);
+				return $this->refresh();
+			}
+			Yii::$app->session->setFlash('alert', [
+				'options'=>['class'=>'alert-success'],
+				'body'=>Yii::t('global', 'Your profile has been successfully saved')
+			]);
+			return $this->redirect(['index', [
+			'searchModel' => $this->searchModel,
+			'dataProvider' => $this->dataProvider,
+			]]);
         } else {
             return $this->render('update', [
+			'translangModel' => $translangModel,
+			'langs' => $langs,
 		'model' => $model,
 		'roles' => $roles,
             ]);

@@ -1,13 +1,17 @@
 <?php
 use yii\helpers\Html;
+use backend\modules\babelfish\assets\AppAsset;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+$bundle = AppAsset::register($this);
+
+$baseUrl = $bundle->baseUrl;
 
 $avatar = Yii::$app->user->identity->avatar_base_url .'/'. Yii::$app->user->identity->avatar_path;
 if ($avatar === '/') {
-    $avatar = Yii::$app->homeUrl . 'images/avatar_default.jpg';
+    $avatar = $baseUrl . '/images/avatar_default.jpg';
 }
 $fullName = Yii::$app->user->identity->firstname .' '.Yii::$app->user->identity->lastname;
 
@@ -23,8 +27,8 @@ if (Yii::$app->controller->action->id === 'login') {
     );
 } else {
 
-    if (class_exists('babelfish\assets\AppAsset')) {
-        babelfish\assets\AppAsset::register($this);
+    if (class_exists('backend\modules\babelfish\assets\AppAsset')) {
+        backend\modules\babelfish\assets\AppAsset::register($this);
     } else {
         app\assets\AppAsset::register($this);
     }

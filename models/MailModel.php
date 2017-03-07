@@ -1,6 +1,6 @@
 <?php
 
-namespace babelfish\models;
+namespace backend\modules\babelfish\models;
 
 use yii\base\Model;
 

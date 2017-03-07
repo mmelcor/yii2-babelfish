@@ -1,10 +1,10 @@
 <?php
-namespace babelfish\models;
+namespace backend\modules\babelfish\models;
 
 use Yii;
 use yii\base\Model;
-use babelfish\models\BabelfishUsers;
-use babelfish\models\TranslatorLanguage;
+use backend\modules\babelfish\models\BabelfishUsers;
+use backend\modules\babelfish\models\TranslatorLanguage;
 
 /**
  * Add User form
@@ -16,7 +16,7 @@ class AddUserForm extends Model
     public $email;
     public $password;
     public $role;
-	public $languages;
+    public $languages;
 
 
     /**
@@ -35,7 +35,7 @@ class AddUserForm extends Model
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-	    ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+	    ['email', 'unique', 'targetClass' => '\backend\modules\babelfish\models\BabelfishUsers', 'message' => 'This email address has already been taken.'],
 
 	    [['languages', 'role', 'password'], 'safe'],
 

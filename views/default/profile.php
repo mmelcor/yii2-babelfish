@@ -1,9 +1,9 @@
 <?php
 
-use common\models\UserProfile;
-use common\models\User;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use trntv\filekit\widget\Upload;
+use oorrwullie\babelfishfood\models\Languages;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\UserProfile */
@@ -16,7 +16,7 @@ $this->title = 'Edit profile';
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'picture')->widget(\trntv\filekit\widget\Upload::classname(), [
+    <?= $form->field($model, 'picture')->widget(Upload::classname(), [
         'url'=>['avatar-upload']
     ]) ?>
 
@@ -24,7 +24,17 @@ $this->title = 'Edit profile';
 
     <?= $form->field($model, 'lastname')->textInput(['maxlength' => 255, 'style' => 'width: 300px;']) ?>
 
-	<?= $form->field($translangModel, 'languages')->checkboxList($langs) ?>
+	<p><strong>Known Languages</strong></p>
+	<?php
+		$lang_string = '<p>';
+
+		foreach($translangModel->languages as $lang) {
+			$language = Languages::findOne(['lang_id' => $lang]);
+			$lang_string .= '| ' . $language->lang_name . ' ';
+		}
+
+		echo $lang_string . '|';
+	?>
 
 	<div class="clearfix"></div>
     <div class="form-group">

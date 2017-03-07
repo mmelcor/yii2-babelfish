@@ -1,9 +1,9 @@
 <?php
-namespace babelfish\models;
+namespace backend\modules\babelfish\models;
 
 use yii\base\Model;
 use yii\base\InvalidParamException;
-use babelfish\models\BabelfishUsers;
+use backend\modules\babelfish\models\BabelfishUsers;
 
 /**
  * Password reset form

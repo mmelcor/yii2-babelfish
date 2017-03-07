@@ -1,10 +1,10 @@
 <?php
 
-namespace babelfish\models;
+namespace backend\modules\babelfish\models;
 
 use Yii;
 use common\models\Languages;
-use babelfish\models\BabelfishUsers;
+use backend\modules\babelfish\models\BabelfishUsers;
 
 /**
  * This is the model class for table "translator_language".
@@ -16,6 +16,8 @@ use babelfish\models\BabelfishUsers;
 class TranslatorLanguage extends \yii\db\ActiveRecord
 {
 	public $languages;
+	public $newLanguages;
+
     /**
      * @inheritdoc
      */
@@ -55,6 +57,52 @@ class TranslatorLanguage extends \yii\db\ActiveRecord
             'language' => 'Language',
         ];
     }
+
+	/**
+	 * Checks $newLanguages vs $languages and removes or adds differences.
+	 */
+	public function updateAssociations()
+	{
+		$deleted = array_udiff($this->languages, $this->newLanguages['languages'], [$this, 'compare_languages']);
+		
+		if($deleted) {
+			foreach($deleted as $delete) {
+				$language = TranslatorLanguage::findOne(['translator' => $this->translator, 'language' => $delete]);
+				$language->delete();
+			}
+		}
+	}
+
+	/**
+	 * Saves the languages if they do not currently exist.
+	 *
+	 * @return true|false if it is able to save.
+	 */
+	public function saveNew()
+	{
+		foreach($this->newLanguages['languages'] as $lang) {
+			if(!TranslatorLanguage::findOne(['translator' => $this->translator, 'language' => $lang])) {
+				$newLang = new TranslatorLanguage();
+				$newLang->translator = $this->translator;
+				$newLang->language = $lang;
+	
+				if(!$newLang->save()) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Compares arrays
+	 *
+	 * @return boolean
+	 */
+	public function compare_languages($languages, $newLanguages)
+	{
+		return strcmp($languages, $newLanguages);
+	}
 
 	/**
 	 * @inheritdoc

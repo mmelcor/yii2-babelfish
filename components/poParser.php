@@ -1,10 +1,10 @@
 <?php
 
-namespace babelfish\components;
+namespace backend\modules\babelfish\components;
 
 use Yii;
 use yii\base\Component;
-use babelfish\models\PoMessages;
+use backend\modules\babelfish\models\PoMessages;
 
 class poParser extends Component {
 
@@ -61,7 +61,7 @@ class poParser extends Component {
 		}
 		if (substr($line,0,6) == 'msgstr') {
 		    $msgstr = trim(substr(trim(substr($line,6)),1,-1));
-		    $model->msgstr = $msgstr;
+		    $model->msgstr = stripslashes($msgstr);
 		    $translations[$i] = $model;
 		    unset($model);
 		}

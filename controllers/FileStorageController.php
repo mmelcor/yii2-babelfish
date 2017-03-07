@@ -1,6 +1,6 @@
 <?php
 
-namespace babelfish\controllers;
+namespace backend\modules\babelfish\controllers;
 
 use Yii;
 use common\models\FileStorageItem;

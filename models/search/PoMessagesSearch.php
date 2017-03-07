@@ -1,10 +1,10 @@
 <?php
 
-namespace babelfish\models\search;
+namespace backend\modules\babelfish\models\search;
 
 use Yii;
 use yii\base\Model;
-use babelfish\components\poParser;
+use backend\modules\babelfish\components\poParser;
 use yii\data\ArrayDataProvider;
 
 class PoMessagesSearch extends Model

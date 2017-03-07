@@ -1,10 +1,11 @@
 <?php
 
-namespace babelfish\components;
+namespace backend\modules\babelfish\components;
 
 use Yii;
 use yii\base\Component;
 use yii\web\IdentityInterface;
+use oorrwullie\babelfishfood\models\Languages;
 
 class transLang extends Component {
 
@@ -18,6 +19,11 @@ class transLang extends Component {
      */
     public function __construct($config = array())
     {
+        if (empty($config['languages'])) {
+            $config['languages'] = Languages::getLPL();
+        } else if (is_callable($config['languages'])) {
+            $config['languages'] = Languages::getLPL();
+        }
 
         parent::__construct($config);
     }
@@ -73,7 +79,7 @@ class transLang extends Component {
     public function detectLanguage()
     {
 	if(!isset(Yii::$app->translang)) {
-	    Yii::$app->translang = 'en';
+	    Yii::$app->set('translang', 'en');
 	}
     }
 

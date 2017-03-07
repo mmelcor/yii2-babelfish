@@ -1,9 +1,9 @@
 <?php 
-namespace babelfish\models;
+namespace backend\modules\babelfish\models;
 
 use Yii;
 use yii\base\Model;
-use babelfish\models\BabelfishUsers;
+use backend\modules\babelfish\models\BabelfishUsers;
 
 class PasswordForm extends Model {
 

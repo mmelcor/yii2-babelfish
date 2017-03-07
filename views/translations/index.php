@@ -10,6 +10,8 @@ use yii\widgets\Pjax;
 
 $this->title = "Translations";
 $this->params['breadcrumbs'][] = $this->title;
+$dataProvider->sort->route = '../../babel/translations/index';
+
 ?>
 <div class="translations-index">
 
@@ -31,7 +33,22 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	    [
 		'class' => 'yii\grid\ActionColumn',
+		'header' => 'Actions',
+		'headerOptions' => ['style' => 'color:#337ab7'],
 		'template' => '{update}',
+		'buttons' => [
+		    'update' => function ($url, $model) {
+			return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+			    'title' => Yii::t('app', 'Update'),
+			]);
+		    },
+		],
+		'urlCreator' => function ($action, $model, $key, $index) {
+		    if ($action === 'update') {
+			$url ='translations/update?id='.$model->id;
+			return $url;
+		    }
+		}
 	    ],
         ],
     ]); ?>

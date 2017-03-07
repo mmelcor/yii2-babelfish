@@ -1,5 +1,5 @@
 <?php
-namespace babelfish\models;
+namespace backend\modules\babelfish\models;
 
 use common\commands\AddToTimelineCommand;
 use Yii;
@@ -10,7 +10,7 @@ use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
 use trntv\filekit\behaviors\UploadBehavior;
-use babelfish\models\TranslatorLanguage;
+use backend\modules\babelfish\models\TranslatorLanguage;
 use yii\db\Query;
 
 /**
@@ -71,6 +71,7 @@ class BabelfishUsers extends ActiveRecord implements IdentityInterface {
             ],
             'picture' => [
                 'class' => UploadBehavior::className(),
+				'filesStorage' => 'babelFileStorage',
                 'attribute' => 'picture',
                 'pathAttribute' => 'avatar_path',
                 'baseUrlAttribute' => 'avatar_base_url'

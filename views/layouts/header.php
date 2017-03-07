@@ -1,14 +1,22 @@
 <?php
 use yii\helpers\Html;
+use backend\modules\babelfish\assets\AppAsset;
+
+$bundle = AppAsset::register($this);
 
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+$baseUrl = $bundle->baseUrl;
+$linkBaseUrl = Yii::$app->homeUrl;
+if (strpos($linkBaseUrl, '/frontend/web')) {
+    $linkBaseUrl = str_replace('/frontend/web', '', $linkBaseUrl);
+}
 ?>
 
 <header class="main-header">
 
-    <?= Html::a('<span class="logo-mini"><img src="'.Yii::$app->homeUrl.'images/babelfish.jpg" alt="'. Yii::t('base', 'The Babelfish').'" /></span><span class="logo-lg"><img src="'.Yii::$app->homeUrl.'images/babelfish.jpg" alt="' . Yii::t('base', 'The Babelfish') . '" /></span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
+    <?= Html::a('<span class="logo-mini"><img src="'.$baseUrl.'images/babelfish.jpg" alt="'. Yii::t('global', 'The Babelfish').'" /></span><span class="logo-lg"><img src="'.$baseUrl.'/images/babelfish.jpg" alt="' . Yii::t('base', 'The Babelfish') . '" /></span>', $linkBaseUrl.'babel', ['class' => 'logo']) ?>
 
     <nav class="navbar navbar-static-top" role="navigation">
 
@@ -39,14 +47,10 @@ use yii\helpers\Html;
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-			    <a href="<?= Yii::$app->homeUrl ?>profile" class="btn btn-default btn-flat">Profile</a>
+			    <a href="<?=$linkBaseUrl?>babel/default/profile" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
-                                <?= Html::a(
-                                    'Sign out',
-                                    ['/site/logout'],
-                                    ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
-                                ) ?>
+                                <a href="<?=$linkBaseUrl?>babel/default/logout" data-method="post" class="btn btn-default btn-flat">Sign out</a>
                             </div>
                         </li>
                     </ul>

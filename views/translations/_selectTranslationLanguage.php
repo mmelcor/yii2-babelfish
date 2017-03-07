@@ -3,11 +3,11 @@
     use yii\helpers\Url;
     use yii\helpers\Html;
     use yii\web\View;
-    use common\components\languages;
+    use oorrwullie\babelfishfood\models\Languages;
     use yii\widgets\Pjax;
 
-    $languages = languages::getActiveLanguages();
-    $current_language = languages::getCurrentLanguage(Yii::$app->user->identity->translang);
+    $languages = Languages::getSwitcherLanguages();
+    $current_language = Languages::getCurrentLanguage(Yii::$app->user->identity->translang);
 
     $url = Url::current();
     if (strpos($url,'site')) {
@@ -16,7 +16,10 @@
     if (strpos($url,'index')) {
 	$url = str_replace('index', '', $url);
     }
-
+    $url = rtrim($url, '/');
+    if (strpos($url, '?')) {
+	$url = substr_replace($url, '', strrpos ($url , '/' ), 1);
+    }
 ?>
 
     <?php Pjax::begin(); ?>    

@@ -1,5 +1,5 @@
 <?php
-namespace babelfish\models;
+namespace backend\modules\babelfish\models;
 
 use Yii;
 use yii\base\Model;

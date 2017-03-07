@@ -1,6 +1,6 @@
 <?php
 
-namespace babelfish\assets;
+namespace backend\modules\babelfish\assets;
 
 use yii\web\AssetBundle;
 
@@ -9,8 +9,7 @@ use yii\web\AssetBundle;
  */
 class LoginAsset extends AssetBundle
 {
-    public $basePath = '@webroot';
-    public $baseUrl = '@web';
+    public $sourcePath = '@backend/modules/babelfish/assets';
     public $css = [
         'css/login.css',
     ];
@@ -20,7 +19,7 @@ class LoginAsset extends AssetBundle
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
-	'babelfish\assets\AppAsset',
+	'backend\modules\babelfish\assets\AppAsset',
 	'dmstr\web\AdminLteAsset',
     ];
 }
