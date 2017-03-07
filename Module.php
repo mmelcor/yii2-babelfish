@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\modules\babelfish;
+namespace mmelcor\modules\babelfish;
 
 use Yii;
 use \yii\web\Request;
@@ -13,10 +13,9 @@ class Module extends \yii\base\Module {
     /**
      * @inheritdoc
      */
-    public $controllerNamespace = 'backend\modules\babelfish\controllers';
+    public $controllerNamespace = 'mmelcor\modules\babelfish\controllers';
     public $id = 'app-babelfish';
-    public $bootstrap = ['log', 'translang'];
-    public $layout = '@backend/modules/babelfish/views/layouts/main';
+    public $layout = '@mmelcor/modules/babelfish/views/layouts/main';
     public $cookieValidationKey;
 
     /**
@@ -28,7 +27,7 @@ class Module extends \yii\base\Module {
 
 	$this->components = [
 	    'translang' => [
-		'class' => 'backend\modules\babelfish\components\transLang',
+		'class' => 'mmelcor\modules\babelfish\components\transLang',
 		'callback' => function($language) {
 		    $model = \Yii::$app->user->identity;
 		    $model->translang = $language;
@@ -36,7 +35,7 @@ class Module extends \yii\base\Module {
 		}
 	    ],
 	    'poParser' => [
-		'class' => 'backend\modules\babelfish\components\poParser',
+		'class' => 'mmelcor\modules\babelfish\components\poParser',
 		'basepath' => '../../common/messages/',
 		'filename' => '/messages.po',
 	    ],
@@ -46,7 +45,7 @@ class Module extends \yii\base\Module {
 	    'class'=>'yii\web\User',
 	    'loginUrl'=>['babel/default/login'],
 	    'returnUrl' => ['babel/default'],
-	    'identityClass' => 'backend\modules\babelfish\models\BabelfishUsers',
+	    'identityClass' => 'mmelcor\modules\babelfish\models\BabelfishUsers',
 	    'enableAutoLogin' => true,
 	    'identityCookie' => [
 		'name' => '_babelfishUser',
@@ -74,7 +73,7 @@ class Module extends \yii\base\Module {
 
 	Yii::$app->set('mailer', [
 	    'class' => 'yii\swiftmailer\Mailer',
-	    'viewPath' => '../../backend/modules/babelfish/mail',
+	    'viewPath' => '@vendor/mmelcor/modules/babelfish/mail',
 		'useFileTransport' => true,
 	]);
 
