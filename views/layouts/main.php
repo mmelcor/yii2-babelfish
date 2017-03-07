@@ -27,8 +27,8 @@ if (Yii::$app->controller->action->id === 'login') {
     );
 } else {
 
-    if (class_exists('backend\modules\babelfish\assets\AppAsset')) {
-        backend\modules\babelfish\assets\AppAsset::register($this);
+    if (class_exists('mmelcor\babelfish\assets\AppAsset')) {
+        mmelcor\babelfish\assets\AppAsset::register($this);
     } else {
         app\assets\AppAsset::register($this);
     }
