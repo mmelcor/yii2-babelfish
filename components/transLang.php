@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\modules\babelfish\components;
+namespace mmelcor\babelfish\components;
 
 use Yii;
 use yii\base\Component;

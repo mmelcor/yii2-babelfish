@@ -1,10 +1,10 @@
 <?php
 
-namespace backend\modules\babelfish\components;
+namespace mmelcor\babelfish\components;
 
 use Yii;
 use yii\base\Component;
-use backend\modules\babelfish\models\PoMessages;
+use mmelcor\babelfish\models\PoMessages;
 
 class poParser extends Component {
 
