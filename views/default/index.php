@@ -18,33 +18,19 @@ $this->title = 'Dashboard | BabelFish';
 
     <div class="body-content">
         <div class="row">
-	    <div class="col-md-6 col-sm-12">
+<!--	    <div class="col-md-6 col-sm-12">
 		<div class="box box-info">
 		    <div class="box-header">
 			<i class="fa fa-users"></i>
 			<h3 class="box-title">Visitors</h3>
-		    </div><!-- /.box-header -->
+		    </div>
 		    <div class="box-body">
 			<dl class="dl-horizontal">
-			    <dt>Currently Online</dt>
-			    <dd><?= Yii::$app->userCounter->getOnline() ?></dd>
-
-			    <dt>Today</dt>
-			    <dd><?= Yii::$app->userCounter->getToday() ?></dd>
-
-			    <dt>Yesterday</dt>
-			    <dd><?= Yii::$app->userCounter->getYesterday() ?></dd>
-
-			    <dt>Total (all-time)</dt>
-			    <dd><?= Yii::$app->userCounter->getTotal() ?></dd>
-
-			    <dt>Most in 1 day</dt>
-			    <dd><?= Yii::$app->userCounter->getMaximal() ?> (<?= date('M d, Y', Yii::$app->userCounter->getMaximalTime()) ?>)</dd>
 			</dl>
-		    </div><!-- /.box-body -->
+		    </div>
 		</div>
 	    </div>
-
+-->
 	    <div class="col-md-6 col-sm-12">
 		<div class="box box-primary">
 		    <div class="box-header">
