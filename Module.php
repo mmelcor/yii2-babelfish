@@ -73,7 +73,7 @@ class Module extends \yii\base\Module {
 
 	Yii::$app->set('mailer', [
 	    'class' => 'yii\swiftmailer\Mailer',
-	    'viewPath' => '@vendor/mmelcor/babelfish/mail',
+	    'viewPath' => '@vendor/mmelcor/yii2-babelfish/mail',
 		'useFileTransport' => true,
 	]);
 
