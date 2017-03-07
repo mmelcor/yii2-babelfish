@@ -1,6 +1,6 @@
 <?php
 use yii\helpers\Html;
-use backend\modules\babelfish\assets\LoginAsset;
+use mmelcor\babelfish\assets\LoginAsset;
 
 /* @var $this \yii\web\View */
 /* @var $content string */

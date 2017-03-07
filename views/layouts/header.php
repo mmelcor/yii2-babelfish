@@ -1,6 +1,6 @@
 <?php
 use yii\helpers\Html;
-use backend\modules\babelfish\assets\AppAsset;
+use mmelcor\babelfish\assets\AppAsset;
 
 $bundle = AppAsset::register($this);
 
