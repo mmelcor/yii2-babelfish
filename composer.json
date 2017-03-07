@@ -1,0 +1,37 @@
+{
+	"name": "mmelcor/yii2-babelfish",
+	"description": "A translation manager for Yii2.",
+	"keywords": ["yii2", "translations", "po", "database", "gui", "manager", "multi-site"],
+	"homepage": "https://github.com/mmelcor/yii2-babelfish",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Jeremiah Payne",
+			"email": "mmelcor@gmail.com"
+		},
+		{
+			"name": "Kevin Payne",
+			"email": "payneks@gmail.com"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/mmelcor/yii2-babelfish/issues",
+		"wiki": "https://github.com/mmelcor/yii2-babelfish/wiki",
+		"source": "https://github.com/mmelcor/yii2-babelfish"
+	},
+	"require": {
+		"yiisoft/yii2": "*",
+		"oorrwullie/yii2-babelfishfood": "*",
+		"mmelcor/yii2-imagehandler": "*",
+		"trntv/yii2-file-kit": "^1.1",
+		"dmstr/yii2-adminlte-asset": "2.*",
+		"asofter/yii2-imperavi-redactor": "*",
+		"creocoder/yii2-flysystem": "^0.8.1",
+		"league/flysystem-aws-s3-v2": "^1.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"mmelcor\\babelfish\\":""
+		}
+	}
+}
