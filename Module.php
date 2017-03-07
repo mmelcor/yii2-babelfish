@@ -78,6 +78,8 @@ class Module extends \yii\base\Module {
 		'useFileTransport' => true,
 	]);
 
+	Yii::$app->errorHandler->errorAction = 'babel/default/error';
+
 	Yii::createObject($this->components['translang']);
 
     }
