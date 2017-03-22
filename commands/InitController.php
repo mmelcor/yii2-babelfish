@@ -47,9 +47,9 @@ class InitController extends Controller
 		$signup->role = 'ninja';
 
 		if($signup->adduser()) {
-			echo "Thank you for installing yii2-babelfish.";
+			echo "Thank you for installing yii2-babelfish.\n\n";
 		} else {
-			echo "There was a problem please re-run init.";
+			echo "There was a problem please re-run init.\n\n";
 		}
 	}
 }
