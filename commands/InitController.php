@@ -16,7 +16,7 @@ class InitController extends Controller
 
 	public function actionSignup()
 	{
-		$signup = new AddUserForm();
+		$signup = new ConsoleAddUser();
 
 		$firstname = $this->prompt("Please enter your first name: ", [
 			'required' => true,
