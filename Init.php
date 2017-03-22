@@ -15,6 +15,11 @@ class Init extends \yii\base\Module implements BootstrapInterface
 	public function init()
 	{
 		parent::init();
+
+		Yii::$app->set('authManager', [
+			'class' => 'yii\rbac\DbManager',
+			'db' => 'babelfishDb',
+		]);
 	}
 
 	public function bootstrap($app) 
