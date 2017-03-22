@@ -13,7 +13,10 @@ class InitController extends Controller
 	{
 		Yii::$app->runAction('migrate', ['-p=@vendor/mmelcor/yii2-babelfish/migrations']);
 		$signup = new SignupForm();
+	}
 
+	public function actionSignup()
+	{
 		$firstname = $this->prompt("Please enter your first name.", [
 			'required' => true,
 		]);
