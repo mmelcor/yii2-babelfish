@@ -5,22 +5,23 @@ namespace mmelcor\babelfish\commands;
 use Yii;
 use yii\console\Controller;
 use yii\helpers\Console;
-use mmelcor\babelfish\models\SignupForm;
+use mmelcor\babelfish\models\AddUserForm;
 
 class InitController extends Controller
 {
 	public function actionIndex()
 	{
 		Yii::$app->runAction('migrate', ['-p=@vendor/mmelcor/yii2-babelfish/migrations']);
-		$signup = new SignupForm();
 	}
 
 	public function actionSignup()
 	{
-		$firstname = $this->prompt("Please enter your first name.", [
+		$signup = new AddUserForm();
+
+		$firstname = $this->prompt("Please enter your first name: ", [
 			'required' => true,
 		]);
-		$lastname = $this->prompt("Please enter your last name.", [
+		$lastname = $this->prompt("Please enter your last name: ", [
 			'required' => true,
 		]);
 		$email = $this->prompt("To create an admin account please enter your email address:", [
@@ -39,21 +40,11 @@ class InitController extends Controller
 			}
 		]);
 
-		$password2 = $this->prompt("Please re-enter your password: ", [
-			'required' => true,
-			'validator' => function($input, $error) {
-				if($input !== $password) {
-					$error = "Passwords must match.";
-					return false;
-				}
-				return true;
-			},
-		]);
-
 		$signup->firstname = $firstname;
 		$signup->lastname = $lastname;
 		$signup->email = $email;
-		$signup->password = $password2;
+		$signup->password = $password;
+		$signup->role = 'ninja';
 
 		if($signup->signup()) {
 			echo "Thank you for installing yii2-babelfish.";
