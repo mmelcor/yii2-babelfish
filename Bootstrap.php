@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\modules\babelfish;
+namespace mmelcor\babelfish\modules\babelfish;
 
 use yii\base\BootstrapInterface;
 use yii\base\Application;

@@ -34,7 +34,7 @@ class ConsoleAddUser extends Model
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-	    ['email', 'unique', 'targetClass' => '\backend\modules\babelfish\models\BabelfishUsers', 'message' => 'This email address has already been taken.'],
+	    ['email', 'unique', 'targetClass' => 'mmelcor\models\BabelfishUsers', 'message' => 'This email address has already been taken.'],
 
 	    [['role', 'password'], 'safe'],
 
