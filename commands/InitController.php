@@ -11,7 +11,10 @@ class InitController extends Controller
 {
 	public function actionIndex()
 	{
-		Yii::$app->runAction('migrate', ['migrationPath' => '@vendor/mmelcor/yii2-babelfish/migrations']);
+		Yii::$app->runAction('migrate', [
+			'migrationPath' => '@vendor/mmelcor/yii2-babelfish/migrations',
+			'db' => 'babelfishDb',
+		]);
 	}
 
 	public function actionSignup()
