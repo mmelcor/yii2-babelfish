@@ -40,7 +40,39 @@ Once the extension is installed :
 
 Follow configuration for [oorrwullie\yii2-babelfishfood](https://github.com/oorrwullie/yii2-babelfishfood).
 
-FlySystem and Fileuploading configuration **here**
+Configure `creocoder\flysystem\AwsS3FileSystem` by placing the following in the `common/config/main.php` file
+
+```php
+    'components' => [
+		'awss3Fs' => [
+			'class' => 'creocoder\flysystem\AwsS3FileSystem',
+			'key' => '[AWS key]',
+			'secret' => '[AWS Secret]',
+			'region' => '[region]',
+			'bucket' => '[bucket name]',
+			'prefix' => '[prefix folder path]',
+			'baseUrl' => '[S3 base url path]'
+		],
+		'...',
+	],
+```
+for additional information or options checkout [creocoder\Flysystem](https://github.com/creocoder/yii2-flysystem). Feel free to use any of the other file system options they support.
+
+Configure `babelFileStorage` place the following also in `common/config/main.php`
+
+```php
+'components' => [
+	'...',
+	'babelFileStorage' => [ //this must be the component name, as it is being used in the module.
+		'class' => 'trntv\filekit\Storage',
+		'filesystemComponent' => 'awss3Fs', //or whichever file system you are using.
+		'baseUrl' => '[Your base url path]'
+	],
+	'...',
+],
+```
+
+If you have trouble see [trntv/yii2-file-kit](https://github.com/trntv/yii2-file-kit) documentation.
 
 **Module Configuration**
 
@@ -61,13 +93,40 @@ Add babelfishDb to `common/config/main-local.php`
 ],
 ```
 
-Config Init module
+Config Init module by setting up the Module and bootstrapping it in `console/config/main.php`. Example:
 
-Config babelfish module
+```php
 
-Run first console command
+    'bootstrap' => ['log', 'babelfish-init'],
+	'modules' => [
+		'babelfish-init' => 'mmelcor\babelfish\Init',
+	],
+```
 
-Run second console command
+Config babelfish module in `frontend/config/main.php` by placing the following in the modules section:
+
+```php
+
+    'modules' => [
+		'babelfish' => [
+			'class' => 'mmelcor\babelfish\Module',
+			'cookieValidationKey' => '[CSRF Key]', //you will need to generate a unique validation key.
+		],
+    ],
+```
+
+**Run console commands**
+
+Once the configuration has been completed next run the following console commands:
+
+`./yii babelfish-init`
+
+This will run the necessary migrations to populate the database.
+
+`./yii babelfish-init/signup`
+
+This will create the initial admin user be sure to keep track of the password and user used.
+
 
 ???
 
