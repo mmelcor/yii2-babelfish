@@ -96,7 +96,7 @@ $this->title = 'Dashboard | BabelFish';
 
 		<?php if(Yii::$app->user->can('adminTranslators')) { ?>
 			<div class="col-lg-4 col-sm-6 col-xs-12">
-			<a href="<?=Yii::$app->homeurl . 'babel/translators' ?>">
+			<a href="<?=Yii::$app->homeurl . 'babel/users' ?>">
 				<!-- small box -->
 				<div class="small-box bg-red">
 				<div class="inner">
