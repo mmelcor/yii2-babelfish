@@ -56,10 +56,6 @@ class InitController extends Controller
 		$auth->add($ninja);
 		$auth->addChild($ninja, $superUser);
 		$auth->addChild($ninja, $manager);
-
-		// Assign roles to users. 1 and 2 are IDs returned by IdentityInterface::getId()
-		// usually implemented in your User model.
-		$auth->assign($ninja, 1);
 	}
 
 	public function actionSignup()
