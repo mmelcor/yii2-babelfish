@@ -109,7 +109,7 @@ If you have trouble see [trntv/yii2-file-kit](https://github.com/trntv/yii2-file
 	```php
 	
 	'modules' => [
-		'babelfish' => [
+		'babel' => [
 			'class' => 'mmelcor\babelfish\Module',
 			'cookieValidationKey' => '[CSRF Key]', //you will need to generate a unique validation key.
 		],
@@ -118,20 +118,34 @@ If you have trouble see [trntv/yii2-file-kit](https://github.com/trntv/yii2-file
 
 **Run console commands**
 
-1. Once the configuration has been completed next run the following console commands:
+Once the configuration has been completed next run the following console commands:
 
-	`./yii babelfish-init`
+1. `./yii babelfish-init` This creates the RBAC tables and users table in the babelfish users.
 
-2. This will run the necessary migrations to populate the database.
+1. `./yii babelfish-init/load-rbac` This will load the RBAC roles and rules into the database.
 
-`./yii babelfish-init/signup`
+1. `./yii babelfish-init/signup` This will create the initial super user for administration.
 
-This will create the initial admin user be sure to keep track of the password and user used.
+**Add Translation Hooks**
 
+Add the following babelfish necessary translation hooks to the `common/config/main.php` i18n section:
 
-???
-
-**Profit**
+```php
+'i18n' => [
+	'translations' => [
+		'. . .',
+		'base*' => [
+			'class' => 'yii\i18n\GettextMessageSource',
+			'useMoFile' => false,
+			'basePath' => '@common/messages',
+		],
+		'babelfish*' => [
+			'class' => 'yii\i18n\GettextMessageSource',
+			'useMoFile' => false,
+			'basePath' => '@common/messages',
+		],
+	],
+],
 
 Implementation
 --------------

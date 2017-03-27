@@ -27,10 +27,11 @@ $this->title = 'Edit profile';
 	<p><strong>Known Languages</strong></p>
 	<?php
 		$lang_string = '<p>';
-
-		foreach($translangModel->languages as $lang) {
-			$language = Languages::findOne(['lang_id' => $lang]);
-			$lang_string .= '| ' . $language->lang_name . ' ';
+		if($translangModel->languages != null) {
+			foreach($translangModel->languages as $lang) {
+				$language = Languages::findOne(['lang_id' => $lang]);
+				$lang_string .= '| ' . $language->lang_name . ' ';
+			}
 		}
 
 		echo $lang_string . '|';

@@ -53,7 +53,7 @@ $this->title = 'Dashboard | BabelFish';
 	<div class="row">
 
 	    <div class="col-lg-4 col-sm-6 col-xs-12">
-		<a href="babel/translations">
+		<a href="<?= Yii::$app->homeurl . 'babel/translations' ?>">
 		    <!-- small box -->
 		    <div class="small-box bg-green">
 			<div class="inner">
@@ -75,7 +75,7 @@ $this->title = 'Dashboard | BabelFish';
 	    </div><!-- ./col -->
 
 	    <div class="col-lg-4 col-sm-6 col-xs-12">
-		<a href="babel/default/stylefix">
+		<a href="<?=Yii::$app->homeurl . 'babel/default/stylefix' ?>">
 		    <!-- small box -->
 		    <div class="small-box bg-yellow">
 			<div class="inner">
@@ -96,7 +96,7 @@ $this->title = 'Dashboard | BabelFish';
 
 		<?php if(Yii::$app->user->can('adminTranslators')) { ?>
 			<div class="col-lg-4 col-sm-6 col-xs-12">
-			<a href="babel/translators">
+			<a href="<?=Yii::$app->homeurl . 'babel/translators' ?>">
 				<!-- small box -->
 				<div class="small-box bg-red">
 				<div class="inner">

@@ -56,6 +56,8 @@ class InitController extends Controller
 		$auth->add($ninja);
 		$auth->addChild($ninja, $superUser);
 		$auth->addChild($ninja, $manager);
+		
+		echo "\nRBAC data has been loaded into RBAC tables.\n";
 	}
 
 	public function actionSignup()
@@ -91,9 +93,9 @@ class InitController extends Controller
 		$signup->role = 'ninja';
 
 		if($signup->adduser()) {
-			echo "Thank you for installing yii2-babelfish.\n\n";
+			echo "\nThank you for installing yii2-babelfish.\n\n";
 		} else {
-			echo "There was a problem please re-run init.\n\n";
+			echo "\nThere was a problem please re-run init.\n\n";
 		}
 	}
 }
