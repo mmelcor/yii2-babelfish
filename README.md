@@ -146,7 +146,11 @@ Add the following babelfish necessary translation hooks to the `common/config/ma
 		],
 	],
 ],
+```
 
 Implementation
 --------------
 
+Once this has all been completed you should be able to navigate to yourdomain.com/babel. If everything has been installed and configured correctly you should see the following screen:
+
+![babelfish login screenshot](login.png)
