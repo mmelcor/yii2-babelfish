@@ -39,26 +39,28 @@ Once the extension is installed :
 **Dependency Configuration**
 
 Follow configuration for [oorrwullie\yii2-babelfishfood](https://github.com/oorrwullie/yii2-babelfishfood).
+Once this has been completed continue configuring the remaining dependencies:
 
-Configure `creocoder\flysystem\AwsS3FileSystem` by placing the following in the `common/config/main.php` file
+**Filesystem Configuration**
+Configure your file system component. This package comes with `creocoder\flysystem\AwsS3FileSystem` by default as that is what we use. You may use any of those supported by [trntv/yii2-file-kit](https://github.com/trntv/yii2-file-ki).  Place the following in the `common/config/main.php` file, or similar depending on your file system.
 
 ```php
-    'components' => [
-		'awss3Fs' => [
-			'class' => 'creocoder\flysystem\AwsS3FileSystem',
-			'key' => '[AWS key]',
-			'secret' => '[AWS Secret]',
-			'region' => '[region]',
-			'bucket' => '[bucket name]',
-			'prefix' => '[prefix folder path]',
-			'baseUrl' => '[S3 base url path]'
-		],
-		'...',
+'components' => [
+	'awss3Fs' => [
+		'class' => 'creocoder\flysystem\AwsS3FileSystem',
+		'key' => '[AWS key]',
+		'secret' => '[AWS Secret]',
+		'region' => '[region]',
+		'bucket' => '[bucket name]',
+		'prefix' => '[prefix folder path]',
+		'baseUrl' => '[S3 base url path]'
 	],
+	'...',
+],
 ```
 for additional information or options checkout [creocoder\Flysystem](https://github.com/creocoder/yii2-flysystem). Feel free to use any of the other file system options they support.
 
-Configure `babelFileStorage` place the following also in `common/config/main.php`
+Configure `babelFileStorage` place the following also in `common/config/main.php`. The file storage step is required to follow the file system set up as it uses the file system as the route for storing the uploaded files. File storage is required to support the uploading of users' avatars, and potential future features.
 
 ```php
 'components' => [
@@ -76,52 +78,51 @@ If you have trouble see [trntv/yii2-file-kit](https://github.com/trntv/yii2-file
 
 **Module Configuration**
 
-create a new database to house babelfish specific RBAC and Users.
+1. Create a new database to house babelfish specific RBAC and Users.
 
-Add babelfishDb to `common/config/main-local.php`
+1. Add babelfishDb to `common/config/main-local.php`. This component *must* be named `babelfishDb` as that is the component the module will be looking for.
 
-```php
-'components' => [
-	'. . .',
-	'babelfishDb' => [
-		'class' => 'yii\db\Connection',
-		'dsn' => 'mysql:host=localhost;dbname=[database name],
-		'username' => '[username]',
-		'password' => '[password]',
-		'charset' => 'utf8',
+	```php
+	'components' => [
+		'. . .',
+		'babelfishDb' => [
+			'class' => 'yii\db\Connection',
+			'dsn' => 'mysql:host=localhost;dbname=[database name],
+			'username' => '[username]',
+			'password' => '[password]',
+			'charset' => 'utf8',
+		],
 	],
-],
-```
+	```
 
-Config Init module by setting up the Module and bootstrapping it in `console/config/main.php`. Example:
+1. Config Init module by setting up the Module and bootstrapping it in `console/config/main.php`. This module will be used to install database migrations and setup the initial super user for the module. Example setup:
 
-```php
+	```php
+	    'bootstrap' => ['log', 'babelfish-init'],
+		'modules' => [
+			'babelfish-init' => 'mmelcor\babelfish\Init',
+		],
+	```
 
-    'bootstrap' => ['log', 'babelfish-init'],
+1. Config babelfish module in `frontend/config/main.php` by placing the following in the modules section:
+
+	```php
+	
 	'modules' => [
-		'babelfish-init' => 'mmelcor\babelfish\Init',
-	],
-```
-
-Config babelfish module in `frontend/config/main.php` by placing the following in the modules section:
-
-```php
-
-    'modules' => [
 		'babelfish' => [
 			'class' => 'mmelcor\babelfish\Module',
 			'cookieValidationKey' => '[CSRF Key]', //you will need to generate a unique validation key.
 		],
-    ],
-```
+	],
+	```
 
 **Run console commands**
 
-Once the configuration has been completed next run the following console commands:
+1. Once the configuration has been completed next run the following console commands:
 
-`./yii babelfish-init`
+	`./yii babelfish-init`
 
-This will run the necessary migrations to populate the database.
+2. This will run the necessary migrations to populate the database.
 
 `./yii babelfish-init/signup`
 
