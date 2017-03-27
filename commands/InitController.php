@@ -16,6 +16,10 @@ class InitController extends Controller
 			'db' => 'babelfishDb',
 		]);
 
+	}
+
+	public function actionLoadRbac()
+	{
 		$auth = new DbManager(['db' => 'babelfishDb']);
 
 		// add "edit" permission
