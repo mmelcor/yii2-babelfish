@@ -23,19 +23,18 @@ $this->title = 'Edit profile';
     <?= $form->field($model, 'firstname')->textInput(['maxlength' => 255, 'style' => 'width: 300px;']) ?>
 
     <?= $form->field($model, 'lastname')->textInput(['maxlength' => 255, 'style' => 'width: 300px;']) ?>
-
-	<p><strong>Known Languages</strong></p>
+    
+    <?php if($translangModel->languages != null) { ?>
+	<p><strong>Assigned Languages</strong></p>
 	<?php
-		$lang_string = '<p>';
-		if($translangModel->languages != null) {
-			foreach($translangModel->languages as $lang) {
-				$language = Languages::findOne(['lang_id' => $lang]);
-				$lang_string .= '| ' . $language->lang_name . ' ';
-			}
-		}
+	    $lang_string = '<p>';
+	    foreach($translangModel->languages as $lang) {
+		$language = Languages::findOne(['lang_id' => $lang]);
+		$lang_string .= '| ' . $language->lang_name . ' ';
+	    }
 
-		echo $lang_string . '|';
-	?>
+	    echo $lang_string . '|';
+    } ?>
 
 	<div class="clearfix"></div>
     <div class="form-group">
