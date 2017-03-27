@@ -5,6 +5,7 @@ namespace mmelcor\babelfish\commands;
 use Yii;
 use yii\console\Controller;
 use yii\helpers\Console;
+use yii\rbac\DbManager;
 use mmelcor\babelfish\models\ConsoleAddUser;
 
 class InitController extends Controller
