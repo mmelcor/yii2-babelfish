@@ -20,7 +20,7 @@ use mmelcor\babelfish\models\ResetPasswordForm;
 use mmelcor\babelfish\models\PoMessagesSearch;
 use mmelcor\babelfish\models\MailModel;
 use yii\data\ArrayDataProvider;
-use mmelcor\babelfish\models\newUserForm;
+use mmelcor\babelfish\models\NewUserForm;
 use mmelcor\babelfish\models\TranslatorLanguage;
 use mmelcor\babelfish\models\TranslatorsSearch;
 use oorrwullie\babelfishfood\models\Languages;
