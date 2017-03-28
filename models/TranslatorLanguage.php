@@ -63,7 +63,10 @@ class TranslatorLanguage extends \yii\db\ActiveRecord
      */
     public function updateAssociations()
     {
-	$deleted = array_udiff($this->languages, $this->newLanguages['languages'], [$this, 'compare_languages']);
+	$deleted = null;
+	if(isset($this->languages)) {
+		$deleted = array_udiff($this->languages, $this->newLanguages['languages'], [$this, 'compare_languages']);
+	}
 
 	if($deleted) {
 	    foreach($deleted as $delete) {
