@@ -47,7 +47,7 @@ Configure your file system component. This package comes with `creocoder\flysyst
 ```php
 'components' => [
 	'awss3Fs' => [
-		'class' => 'creocoder\flysystem\AwsS3FileSystem',
+		'class' => 'creocoder\flysystem\AwsS3Filesystem',
 		'key' => '[AWS key]',
 		'secret' => '[AWS Secret]',
 		'region' => '[region]',
