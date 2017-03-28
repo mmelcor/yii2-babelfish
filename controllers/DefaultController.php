@@ -314,7 +314,7 @@ class DefaultController extends Controller
 	    Yii::$app->session->setFlash('success', 'Welcome aboard!');
 	    Yii::$app->user->login($user);
 
-	    return $this->goHome();
+	    return $this->redirect('index');
 	}
 
 	return $this->render('newuser', [
