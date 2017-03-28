@@ -65,7 +65,11 @@ class TranslatorLanguage extends \yii\db\ActiveRecord
     {
 	$deleted = null;
 	if(isset($this->languages)) {
+		if(isset($this->newLanguages['languages'])) {
 		$deleted = array_udiff($this->languages, $this->newLanguages['languages'], [$this, 'compare_languages']);
+		} else {
+		$deleted = $this->languages;
+		}
 	}
 
 	if($deleted) {

@@ -80,6 +80,7 @@ class AddUserForm extends Model
 	$user = BabelfishUsers::findByEmail($this->email);
 	$this->sendEmail($user->id);
 
+	if(isset($this->languages)) {
 	    foreach($this->languages as $lang) {
 	        $translang = new TranslatorLanguage();
 	        $translang->translator = $user->id;
@@ -87,6 +88,7 @@ class AddUserForm extends Model
 
 			$translang->save();
 		}
+	}
 
         return $user;
     }
