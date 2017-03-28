@@ -59,7 +59,7 @@ class Module extends \yii\base\Module {
 	]);
 
 	Yii::$app->set(	'session', [
-	    'class' => 'yii\web\session',
+	    'class' => 'yii\web\Session',
 	    'name' => 'PHPBABELMODSESSID',
 	]);
 
