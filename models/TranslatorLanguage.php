@@ -87,7 +87,7 @@ class TranslatorLanguage extends \yii\db\ActiveRecord
      */
     public function saveNew()
     {
-		if(isset($this->newLanguages['languages'])) {
+		if($this->newLanguages['languages'] != null) {
 			foreach($this->newLanguages['languages'] as $lang) {
 				if(!TranslatorLanguage::findOne(['translator' => $this->translator, 'language' => $lang])) {
 					$newLang = new TranslatorLanguage();
