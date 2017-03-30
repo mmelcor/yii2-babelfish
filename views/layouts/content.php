@@ -37,9 +37,9 @@ use dmstr\widgets\Alert;
 
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
-        <b>Version</b> 0.2
+        <b>Version</b> 1.0
     </div>
-    <strong>Copyright &copy; <?= date('Y') ?> <a href="http://rainintl.com">Rain International, LLC</a></strong> All rights
+    <strong>Copyright &copy; <?= date('Y') ?> <a href="http://github.com/mmelcor/yii2-babelfish">Yii2 Babelfish</a></strong> All rights
     reserved.
 </footer>
 
