@@ -45,7 +45,7 @@ $dataProvider->sort->route = '../../babel/translations/index';
 		],
 		'urlCreator' => function ($action, $model, $key, $index) {
 		    if ($action === 'update') {
-			$url ='update?id='.$model->id;
+			$url ='translations/update?id='.$model->id;
 			return $url;
 		    }
 		}
