@@ -160,7 +160,7 @@ class DefaultController extends Controller
 	    ['model' => $model])
 	    ->setFrom([$model->sendor => $model->send_name])
 	    ->setTo($model->recipients)
-	    ->setSubject('Style fixes')
+	    ->setSubject('New Translations')
 	    ->send();
 
 	    return $this->redirect('newtrans');
