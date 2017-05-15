@@ -91,7 +91,7 @@ class PoMessagesSearch extends PoMessages
 	foreach($params as $param_key => $param_value) {
 	    if($param_value != null) {
 		foreach($this->all_translations[0] as $key => $value) {
-		    if(strpos($value->$param_key, $param_value) !==false) {
+		    if(strpos(mb_strtoupper($value->$param_key, 'UTF-8'), mb_strtoupper($param_value, 'UTF-8')) !==false) {
 			$models[$key] = $value;
 		    }
 		}
