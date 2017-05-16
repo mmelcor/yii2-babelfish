@@ -48,7 +48,6 @@ class TranslationsController extends \yii\web\Controller {
 	$searchModel->getData($this->transLanguage);
 	$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-
 	return $this->render('index', [
 	    'searchModel' => $searchModel,
 	    'dataProvider' => $dataProvider,

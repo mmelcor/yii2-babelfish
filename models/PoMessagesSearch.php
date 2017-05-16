@@ -21,14 +21,25 @@ class PoMessagesSearch extends PoMessages
 
     public function getData($lang) 
     {
-/*	echo '<pre>';
-	print_r(Yii::$app);
-	echo '</pre>';
-	exit;
- */
 	$parser = Yii::$app->getModule('babel')->poParser;
-	$this->all_translations = $parser->fetch($lang);
+	$array = $parser->fetch($lang);
+	$this->all_translations = [$this->removeAtAt($array[0])];
     }
+
+	/**
+	 * Parses the fetched data and removes objects having msgstr wrapped in @@.
+	 *
+	 * @return PoMessages
+	 */
+	private function removeAtAt($models) 
+	{
+		return array_filter($models, function($obj) {
+			if(strpos($obj->msgstr, "@@") === false) {
+				return $obj;
+			}
+		});
+	}
+
     /**
      * @inheritdoc
      */
