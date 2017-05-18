@@ -147,7 +147,9 @@ class DefaultController extends Controller
 	    foreach($model->language as $lang) {
 		$translangs = TranslatorLanguage::findAll(['language' => $lang]);
 		foreach($translangs as $tlang) {
+			if($tlang->user->status !== 0) {
 		    $recipients[$tlang->user->email] = $tlang->user->firstname . ' ' . $tlang->user->lastname;
+			}
 		}
 	    }
 
