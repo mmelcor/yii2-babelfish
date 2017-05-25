@@ -10,6 +10,7 @@ use yii\widgets\Pjax;
 
 $this->title = "Translations";
 $this->params['breadcrumbs'][] = $this->title;
+// Set the route for where sorted information will be displayed by pJax
 $dataProvider->sort->route = '../../babel/translations/index';
 
 ?>
@@ -45,7 +46,7 @@ $dataProvider->sort->route = '../../babel/translations/index';
 		],
 		'urlCreator' => function ($action, $model, $key, $index) {
 		    if ($action === 'update') {
-			$url ='translations/update?id='.$model->id;
+			$url = Yii::$app->homeurl . 'babel/translations/update?id='.$model->id;
 			return $url;
 		    }
 		}
